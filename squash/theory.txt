@@ -1,0 +1,2 @@
+Basically it help to merge 2 or more commits into single source of commit, So Before sending PR it looks neat and clean 
+Make sure squash should done based on feature or task or segregation of feature
