@@ -7,3 +7,66 @@ Never squash commits which are under PR for review
 
 
 so we shouldn't squash commits when we share code with other developers mainly when they about to cherry-pick
+
+Squash is basically divided into 2 phase things.
+phase we should have multiple commits and then we should pick the base commit as squash base
+
+Then run the command git rebase -i <base_commit_ID>
+
+How to add commits:
+add or make changes in files and then add the files into git zone 
+example:
+git add . 
+git commit -m "new changes added"
+
+Now repeat this process leads to multiple commits under your local machine under same branch.
+
+Now back to squash thing :
+target the squash base by git log --oneline
+then pick the squash base (here squash base was actually a pick, which means squashed commit before ID)
+example:
+[latest to oldest commits]
+5,4,3,2,1
+you were about to squash 5 to 2 then base_squash will be 1 bcoz,squash range was 5 to 2 so we prefer the boundary as 1
+so pick it's commit ID , Then run squash command
+git rebase -i <squash_base_commit_ID>
+
+this will open a new git terminal :
+press "i" , you will see INSERT (Edit Mode)
+now you will have a list of commits as
+[latest to oldest commits]
+ 5,4,3,2 as pick's 
+ Now edit all pick orginal_base from this range example 5
+ so leave it as pick and turn rest commits as squash and 
+Then press "ESC" and then type ":wq" 
+Now you will open another terminal for edit commit msgs
+there you will see list of all commits msgs from commits (before squash)
+as 5,4,3,2,1
+so delete msgs from 4,3,2,1 and hold 5 msg and edit it 
+
+IMPORTANT 
+Work-Around if you forget to Raise a PR from squash_branch to main then : 
+# STEP 1: Push squashed branch
+git checkout squash
+git rebase -i <commit_ID>
+git push origin squash --force
+
+# STEP 2: Manually merge locally
+git checkout main
+git merge squash
+git push origin main
+
+# ✅ Necessary because no PR exists!
+
+Correct Flow  if you  Raise a PR from squash_branch to main then : 
+# STEP 1: Push squashed branch
+git checkout squash
+git rebase -i <commit_ID>
+git push origin squash --force
+
+# STEP 2: Create PR on GitHub
+# Go to GitHub.com → Create Pull Request (squash → main)
+# Team reviews → Click "Merge" on GitHub
+
+# ✅ NO need for local merge!
+# GitHub handles merging squash into main
