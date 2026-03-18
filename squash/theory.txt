@@ -1,2 +1,9 @@
 Basically it help to merge 2 or more commits into single source of commit, So Before sending PR it looks neat and clean 
 Make sure squash should done based on feature or task or segregation of feature
+
+squash commits only under you local repositories (which means commits under you hood only)
+
+Never squash commits which are under PR for review 
+
+
+so we shouldn't squash commits when we share code with other developers mainly when they about to cherry-pick
